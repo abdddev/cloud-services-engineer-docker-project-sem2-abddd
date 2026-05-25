@@ -13,6 +13,10 @@ RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.27-alpine AS run
 
+USER root
+RUN apk upgrade --no-cache
+USER nginx
+
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html/momo-store
 
