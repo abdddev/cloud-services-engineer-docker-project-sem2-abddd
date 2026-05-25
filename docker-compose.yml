@@ -13,6 +13,16 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
 
   frontend:
     build:
@@ -33,7 +43,24 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 64M
 
 networks:
   momo-net:
     driver: bridge
+    internal: true
