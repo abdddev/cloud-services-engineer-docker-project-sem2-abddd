@@ -119,6 +119,18 @@ docker compose up -d --build
 
 ---
 
+## Образы и размеры
+
+Все образы используют multi-stage сборку: build-стадия не попадает в финальный образ.
+
+| Сервис | Build-образ | Runtime-образ | Размер |
+|--------|-------------|---------------|--------|
+| backend | `golang:1.17-alpine` | `alpine:3.22` | **17 MB** |
+| frontend | `node:16-alpine` | `nginxinc/nginx-unprivileged:1.27-alpine` | **50 MB** |
+| lb | — | `nginxinc/nginx-unprivileged:1.27-alpine` | — |
+
+---
+
 ## Ресурсы контейнеров
 
 В `docker-compose.yml` для сервисов заданы ограничения ресурсов через `deploy.resources`.
@@ -172,14 +184,14 @@ cp .env.example .env
 
 В проекте применяются базовые меры hardening:
 
-- backend запускается от непривилегированного пользователя;
-- для сервисов используется `cap_drop: ALL`;
-- включён `security_opt: no-new-privileges:true`;
-- для nginx можно использовать `read_only: true` и `tmpfs` для временных директорий;
-- заданы лимиты CPU и памяти;
-- frontend собирается отдельно от runtime-образа;
-- Go-бинарь собирается статически через `CGO_ENABLED=0`;
-- runtime-образы не содержат build-зависимостей.
+- backend запускается от непривилегированного пользователя (`app`);
+- `nginxinc/nginx-unprivileged` запускает nginx без root — не требует `CHOWN`, `SETUID`, `SETGID`;
+- `cap_drop: ALL` на всех сервисах — capabilities не наследуются;
+- `security_opt: no-new-privileges:true` — процессы не могут расширить права через setuid/setgid;
+- `read_only: true` + `tmpfs` для временных директорий nginx;
+- лимиты CPU и памяти через `deploy.resources.limits`;
+- изолированная сеть `momo-net` с `internal: true` — контейнеры не имеют прямого доступа в интернет;
+- Go-бинарь собирается статически (`CGO_ENABLED=0`), runtime-образы не содержат build-зависимостей.
 
 ---
 
