@@ -51,6 +51,7 @@ services:
       - /var/cache/nginx
       - /var/run
       - /var/log/nginx
+      - /var/lib/nginx
       - /tmp
     deploy:
       resources:
@@ -86,6 +87,7 @@ services:
       - /var/cache/nginx
       - /var/run
       - /var/log/nginx
+      - /var/lib/nginx
       - /tmp
     deploy:
       resources:

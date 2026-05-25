@@ -125,7 +125,7 @@ docker compose up -d --build
 
 | Сервис | Build-образ | Runtime-образ | Размер |
 |--------|-------------|---------------|--------|
-| backend | `golang:1.17-alpine` | `alpine:3.22` | **17 MB** |
+| backend | `golang:1.25-alpine` | `alpine:3.22` | **17 MB** |
 | frontend | `node:16-alpine` | `nginxinc/nginx-unprivileged:1.27-alpine` | **50 MB** |
 | lb | — | `nginxinc/nginx-unprivileged:1.27-alpine` | — |
 
