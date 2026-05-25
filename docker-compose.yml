@@ -45,13 +45,6 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /var/cache/nginx
-      - /var/run
-      - /var/log/nginx
-      - /var/lib/nginx
-      - /tmp
     deploy:
       resources:
         limits:
@@ -81,13 +74,6 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /var/cache/nginx
-      - /var/run
-      - /var/log/nginx
-      - /var/lib/nginx
-      - /tmp
     deploy:
       resources:
         limits:
