@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8081:8081"
+    networks:
+      - momo-net
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VUE_APP_API_URL: ${VUE_APP_API_URL:-http://localhost:8081}
+    ports:
+      - "80:80"
+    networks:
+      - momo-net
+    depends_on:
+      - backend
+
+networks:
+  momo-net:
+    driver: bridge
