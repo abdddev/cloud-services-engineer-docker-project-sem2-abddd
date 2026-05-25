@@ -1,0 +1,15 @@
+Dockerfile
+.dockerignore
+
+*_test.go
+**/mock/
+
+server
+*.exe
+*.test
+*.out
+bin/
+
+.idea/
+.vscode/
+.DS_Store
