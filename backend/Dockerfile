@@ -10,9 +10,14 @@ RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /server ./cmd/api
 
 FROM alpine:3.22 AS run
 
-RUN addgroup -S app && adduser -S app -G app
+LABEL org.opencontainers.image.title="momo-store-backend" \
+      org.opencontainers.image.description="Go API backend for momo-store"
 
-COPY --from=build /server /server
+RUN addgroup -S app \
+    && adduser -S -G app -H -h /nonexistent app \
+    && apk add --no-cache ca-certificates
+
+COPY --from=build --chown=app:app /server /server
 
 USER app
 
