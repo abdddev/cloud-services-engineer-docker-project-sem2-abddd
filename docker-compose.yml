@@ -18,6 +18,8 @@ services:
     security_opt:
       - no-new-privileges:true
     read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
     deploy:
       resources:
         limits:
@@ -48,6 +50,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:rw,size=32m,uid=101,gid=101,mode=0770
+      - /var/log/nginx:rw,size=16m,uid=101,gid=101,mode=0770
+      - /var/run:rw,size=8m,uid=101,gid=101,mode=0770
+      - /tmp:rw,size=16m,uid=101,gid=101,mode=1777
     deploy:
       resources:
         limits:
@@ -80,6 +88,12 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:rw,size=32m,uid=101,gid=101,mode=0770
+      - /var/log/nginx:rw,size=16m,uid=101,gid=101,mode=0770
+      - /var/run:rw,size=8m,uid=101,gid=101,mode=0770
+      - /tmp:rw,size=16m,uid=101,gid=101,mode=1777
     deploy:
       resources:
         limits:
