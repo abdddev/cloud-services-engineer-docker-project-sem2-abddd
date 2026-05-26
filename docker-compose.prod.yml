@@ -1,0 +1,13 @@
+services:
+  backend:
+    image: ${DOCKER_USER}/docker-project-backend:${IMAGE_TAG:-latest}
+    build: !reset null
+    pull_policy: always
+
+  frontend:
+    image: ${DOCKER_USER}/docker-project-frontend:${IMAGE_TAG:-latest}
+    build: !reset null
+    pull_policy: always
+
+  lb:
+    pull_policy: always
