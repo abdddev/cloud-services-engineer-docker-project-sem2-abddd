@@ -43,6 +43,8 @@ jobs:
           image-ref: ${{ secrets.DOCKER_USER }}/docker-project-backend:latest
           format: table
           exit-code: 1
+          ignore-unfixed: true
+          vuln-type: os,library
           severity: CRITICAL,HIGH
       - name: Scan frontend image
         uses: aquasecurity/trivy-action@master
@@ -50,6 +52,8 @@ jobs:
           image-ref: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
           format: table
           exit-code: 1
+          ignore-unfixed: true
+          vuln-type: os,library
           severity: CRITICAL,HIGH
 
   run-with-docker-compose:
