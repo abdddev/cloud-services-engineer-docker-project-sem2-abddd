@@ -13,6 +13,9 @@ RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.27-alpine AS run
 
+LABEL org.opencontainers.image.title="momo-store-frontend" \
+      org.opencontainers.image.description="Vue.js frontend for momo-store served by nginx"
+
 USER root
 RUN apk upgrade --no-cache
 USER nginx
