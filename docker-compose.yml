@@ -23,6 +23,9 @@ services:
         limits:
           cpus: "0.5"
           memory: 128M
+        reservations:
+          cpus: "0.05"
+          memory: 64M
 
   lb:
     build:
@@ -50,6 +53,9 @@ services:
         limits:
           cpus: "0.25"
           memory: 32M
+        reservations:
+          cpus: "0.05"
+          memory: 16M
 
   frontend:
     build:
@@ -79,6 +85,9 @@ services:
         limits:
           cpus: "0.25"
           memory: 64M
+        reservations:
+          cpus: "0.05"
+          memory: 32M
 
 networks:
   momo-net:
